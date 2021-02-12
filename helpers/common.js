@@ -1,7 +1,7 @@
 module.exports = {
     sendResponse: function (data, req, res) {
         try {
-            return res.status(200).json({ data: data, message: "successful" });
+            return res.status(200).json({ data: data, message: 'success', status: true });
         } catch (error) {
             throw error;
         }

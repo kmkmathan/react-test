@@ -1,41 +1,53 @@
 const https = require('https');
 
 module.exports = {
-    getLaunches: async function () {
-    try {
-        const url = 'https://api.spacexdata.com/v4/launches';
-        // https.get(url,(res) => {
-        //     let body = "";
-        
-        //     res.on("data", (chunk) => {
-        //         body += chunk;
-        //     });
-        
-        //     res.on("end", () => {
-        //         try {
-        //             let json = JSON.parse(body);
-        //             console.log(json)
-        //             res.json({
-        //                 data: json,
-        //                 message: "Hello world",
-        //             });
-        //             // do something with JSON
-        //         } catch (error) {
-        //             console.error(error.message);
-        //         };
-        //     });
-        
-        // }).on("error", (error) => {
-        //     console.error(error.message);
-        // });
+    getSpaceXData: async function (path, clientReq) {
 
-        let result = await https.get(url);
-        console.log(result, 'result')
-      //let result = await transporter.sendMail(mail);
-      
-      return result;
-    } catch (err) {
-      throw err;
+        return new Promise(async (resolve, reject) => {
+
+            const limit = clientReq.query.limit || 10;
+
+            const page = clientReq.query.page || 0;
+            
+            const offset = (limit * page) || 0;
+
+            const data = JSON.stringify({query: {}, options: {limit: limit, offset: offset }});
+
+            const options = {
+                hostname: 'api.spacexdata.com',
+                path: path,
+                port: 443,
+                headers: {'Content-Type' : 'application/json'},
+                method: 'POST'
+            }
+
+            var req = https.request(options, function(res) {
+            
+            let body = "";
+            
+            res.on('data',  (chunk) => {
+                console.log('BODY: ' + chunk);
+                body += chunk;
+            });
+
+            res.on("end", () => {
+                try {
+                    let json = JSON.parse(body);
+                    resolve(json);
+                } catch (error) {
+                    reject(error);
+                    console.error(error.message);
+                };
+            });
+
+            });
+            
+            req.on('error', (e) => {
+            reject(e);
+            console.error(e.message);
+            });
+            req.write(data);
+            req.end();
+        });
     }
-  }
 }
