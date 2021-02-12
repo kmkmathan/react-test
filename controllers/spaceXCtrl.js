@@ -21,30 +21,28 @@ module.exports = {
                 method: 'POST'
             }
 
-            var req = https.request(options, function(res) {
+            const req = https.request(options, function(res) {
             
-            let body = "";
-            
-            res.on('data',  (chunk) => {
-                console.log('BODY: ' + chunk);
-                body += chunk;
-            });
+                let body = "";
+                
+                res.on('data',  (chunk) => {
+                    body += chunk;
+                });
 
-            res.on("end", () => {
-                try {
-                    let json = JSON.parse(body);
-                    resolve(json);
-                } catch (error) {
-                    reject(error);
-                    console.error(error.message);
-                };
-            });
+                res.on("end", () => {
+                    try {
+                        let json = JSON.parse(body);
+                        resolve(json);
+                    } catch (error) {
+                        reject(error);
+                    };
+                });
 
             });
             
             req.on('error', (e) => {
-            reject(e);
-            console.error(e.message);
+                reject(e);
+                console.error(e.message);
             });
             req.write(data);
             req.end();
