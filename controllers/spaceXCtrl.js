@@ -1,7 +1,7 @@
 const https = require('https');
 
 module.exports = {
-    getSpaceXData: async function (path, clientReq) {
+    getSpaceXData: async function (path, clientReq, searchQuery = null) {
 
         return new Promise(async (resolve, reject) => {
 
@@ -11,13 +11,26 @@ module.exports = {
             
             const offset = (limit * page) || 0;
 
-            const data = JSON.stringify({query: {}, options: {limit: limit, offset: offset }});
+            const search =  searchQuery ? searchQuery  : {};
+
+               const data = JSON.stringify(
+                {
+                    query: {
+                         ...search
+                }, 
+                options: {
+                    limit: limit, 
+                    offset: offset 
+                }
+            });
+
+            console.log(data)
 
             const options = {
                 hostname: 'api.spacexdata.com',
                 path: path,
                 port: 443,
-                headers: {'Content-Type' : 'application/json'},
+                headers: { 'Content-Type' : 'application/json' },
                 method: 'POST'
             }
 
