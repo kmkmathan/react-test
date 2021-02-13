@@ -7,9 +7,8 @@ module.exports = function (app) {
       	try {
             const path = `/v4/launches/query`;
 
-            const search = req.query.search ? { "$text": {
-              "$search": req.query.search }}: '';
-              
+            const search = req.query.search ? { "name":  { "$regex": req.query.search }, "upcoming":false }: { "upcoming":false };
+
             const result = await spaceXCtrl.getSpaceXData(path, req, search);
             
     
