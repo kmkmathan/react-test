@@ -10,8 +10,6 @@ module.exports = function (app) {
             const search = req.query.search ? { "name":  { "$regex": req.query.search }, "upcoming":false }: { "upcoming":false };
 
             const result = await spaceXCtrl.getSpaceXData(path, req, search);
-            
-    
 
             return common.sendResponse(result, req, res);
         } catch (err) {

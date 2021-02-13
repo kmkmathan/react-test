@@ -36,8 +36,39 @@ const ContentSelector = styled.div`
   }
 `;
 
+const RocketSection = styled.section`
+  margin-bottom: 40px;
+  position: relative;
+  input{
+    position: absolute;
+    left: calc(5% + 30px);
+    top: -80px;
+    padding: 10px 15px;
+  }
+`;
+
 function App() {
+  
+  const handler = (event) => {
+    if (event.charCode === 13) {
+      const searchLaunchData = async () => {
+        const result = await axios(
+          "http://localhost:4000/api/launches?search=" + event.target.value
+        );
+        setData({ launches: result.data.data.docs });
+        if (result.data.data.docs.length) {
+          setNodatafound(true);
+        } else {
+          setNodatafound(false);
+        }
+        setLoading(false);
+      };
+      searchLaunchData();
+    }
+  };
+
   const [data, setData] = useState({ launches: [] });
+  const [nodatafound, setNodatafound] = useState(false);
   const [rocketdata, setRocketdata] = useState({ rocket: [] });
   const [loading, setLoading] = useState(true);
   const [rocketloading, setRocketloading] = useState(true);
@@ -48,11 +79,10 @@ function App() {
         "http://localhost:4000/api/launches?limit=12"
       );
 
-      console.log(result.data);
-
       setData({ launches: result.data.data.docs });
       setLoading(false);
     };
+
     fetchData();
 
     const fetchRocketData = async () => {
@@ -60,14 +90,12 @@ function App() {
         "http://localhost:4000/api/rockets?limit=12"
       );
 
-      console.log(result.data);
-
       setRocketdata({ rocket: result.data.data.docs });
       setRocketloading(false);
     };
     fetchRocketData();
   }, []);
-      
+  
   return (
     <MainWrapper>
       <Header />
@@ -82,7 +110,8 @@ function App() {
       </Section>
       <Switch>
         <Route path="/launches">
-          <Section>
+          <RocketSection>
+            <input onKeyPress={(e) => handler(e)} type="text" placeholder="Search launches" />
             {loading && <div>loading....</div>}
 
             {!loading && (
@@ -101,12 +130,12 @@ function App() {
                 </Grid>
               </Wrapper>
             )}
-          </Section>
+            {!nodatafound && <div>Data not found</div>}
+          </RocketSection>
         </Route>
         <Route path="/rockets">
         <Section>
             {rocketloading && <div>rocketloading....</div>}
-
             {!rocketloading && (
               <Wrapper>
                 <Grid>
