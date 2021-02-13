@@ -1,5 +1,6 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "./components/shared/header";
@@ -7,6 +8,8 @@ import Hero from "./components/hero";
 import Section from "./layout/section";
 import Wrapper from "./layout/wrapper";
 import LaunchCard from "./components/lauch-card";
+import Grid from "./layout/grid";
+import Column from "./layout/column";
 
 const MainWrapper = styled.main`
   display: block;
@@ -34,21 +37,34 @@ const ContentSelector = styled.div`
 `;
 
 function App() {
-  const [data, setData] = useState({ launches: [] });
+  const [data, setData] = useState({ launches: [], rocket: [] });
   const [loading, setLoading] = useState(true);
+  // const [rocketloading, setRocketloading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "https://api.spacexdata.com/v4/launches/past?limit=10"
+        "http://localhost:4000/api/launches?limit=12"
       );
 
       console.log(result.data);
 
-      setData({ launches: result.data });
+      setData({ launches: result.data.data.docs });
       setLoading(false);
     };
     fetchData();
+
+    // const fetchRocketData = async () => {
+    //   const result = await axios(
+    //     "http://localhost:4000/api/rockets?limit=12"
+    //   );
+
+    //   console.log(result.data);
+
+    //   setData({ rocket: result.data.data.docs });
+    //   setRocketloading(false);
+    // };
+    // fetchRocketData();
   }, []);
 
   return (
@@ -63,24 +79,52 @@ function App() {
           <button>rockets</button>
         </ContentSelector>
       </Section>
-      <Section>
-        {loading && <div>loading....</div>}
+      <Switch>
+        <Route path="/launches">
+          <Section>
+            {loading && <div>loading....</div>}
 
-        {!loading && (
-          <Wrapper>
-            <div className="grid">
-              {data.launches.map((item, index) => (
-                <LaunchCard
-                  key={index.toString()}
-                  image={item.links.patch.small}
-                  title={item.name}
-                  description={item.details}
-                />
-              ))}
-            </div>
-          </Wrapper>
-        )}
-      </Section>
+            {!loading && (
+              <Wrapper>
+                <Grid>
+                  {data.launches.map((item, index) => (
+                    <Column layout={12} columns={4} key={index.toString()}>
+                      <LaunchCard
+                        key={index.toString()}
+                        image={item.links.patch.small}
+                        title={item.name}
+                        description={item.details}
+                      />
+                    </Column>
+                  ))}
+                </Grid>
+              </Wrapper>
+            )}
+          </Section>
+        </Route>
+        <Route path="/rockets">
+        <Section>
+            {loading && <div>loading....</div>}
+
+            {!loading && (
+              <Wrapper>
+                <Grid>
+                  {data.launches.map((item, index) => (
+                    <Column layout={12} columns={4} key={index.toString()}>
+                      <LaunchCard
+                        key={index.toString()}
+                        image={item.links.patch.small}
+                        title={item.name}
+                        description={item.details}
+                      />
+                    </Column>
+                  ))}
+                </Grid>
+              </Wrapper>
+            )}
+          </Section>
+        </Route>
+      </Switch>
     </MainWrapper>
   );
 }

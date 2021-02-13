@@ -11,17 +11,25 @@ const LaunchCardWrapper = styled.div`
   width: 100%;
 
   @media ${device.laptop} {
-    width: 30%;
+    width: calc(100% - 20px);
   }
 `;
 
-const LaunchCardContainer = styled.div``;
+const LaunchCardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 10px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+`;
 
 const ImagContainer = styled.div`
   padding: 40px 20px;
   background-color: #b3c7cc;
   position: relative;
-  margin-top: auto;
 
   img {
     height: 100px;
