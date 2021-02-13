@@ -15,12 +15,12 @@ module.exports = function (app) {
         } catch (err) {
             console.error(err)
             return common.sendError(
-              {
-                message:
+                {
+                    message:
                         err && err.custom
                             ? err.custom
                             : "Error, Please try again",
-              },
+                },
               res
             );
         }

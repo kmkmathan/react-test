@@ -56,7 +56,7 @@ function App() {
           "http://localhost:4000/api/launches?search=" + event.target.value
         );
         setData({ launches: result.data.data.docs });
-        if (result.data.data.docs.length) {
+        if (!result.data.data.docs.length) {
           setNodatafound(true);
         } else {
           setNodatafound(false);
@@ -130,7 +130,7 @@ function App() {
                 </Grid>
               </Wrapper>
             )}
-            {!nodatafound && <div>Data not found</div>}
+            {nodatafound && <div>Data not found</div>}
           </RocketSection>
         </Route>
         <Route path="/rockets">
