@@ -37,9 +37,10 @@ const ContentSelector = styled.div`
 `;
 
 function App() {
-  const [data, setData] = useState({ launches: [], rocket: [] });
+  const [data, setData] = useState({ launches: [] });
+  const [rocketdata, setRocketdata] = useState({ rocket: [] });
   const [loading, setLoading] = useState(true);
-  // const [rocketloading, setRocketloading] = useState(true);
+  const [rocketloading, setRocketloading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,19 +55,19 @@ function App() {
     };
     fetchData();
 
-    // const fetchRocketData = async () => {
-    //   const result = await axios(
-    //     "http://localhost:4000/api/rockets?limit=12"
-    //   );
+    const fetchRocketData = async () => {
+      const result = await axios(
+        "http://localhost:4000/api/rockets?limit=12"
+      );
 
-    //   console.log(result.data);
+      console.log(result.data);
 
-    //   setData({ rocket: result.data.data.docs });
-    //   setRocketloading(false);
-    // };
-    // fetchRocketData();
+      setRocketdata({ rocket: result.data.data.docs });
+      setRocketloading(false);
+    };
+    fetchRocketData();
   }, []);
-
+      
   return (
     <MainWrapper>
       <Header />
@@ -104,16 +105,16 @@ function App() {
         </Route>
         <Route path="/rockets">
         <Section>
-            {loading && <div>loading....</div>}
+            {rocketloading && <div>rocketloading....</div>}
 
-            {!loading && (
+            {!rocketloading && (
               <Wrapper>
                 <Grid>
-                  {data.launches.map((item, index) => (
-                    <Column layout={12} columns={4} key={index.toString()}>
+                  {rocketdata.rocket.map((item, index) => (
+                    <Column layout={4} columns={1} key={index.toString()}>
                       <LaunchCard
                         key={index.toString()}
-                        image={item.links.patch.small}
+                        image={item.flickr_images[0]}
                         title={item.name}
                         description={item.details}
                       />
