@@ -5,11 +5,9 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
 
-            const limit = limitQuery;
-
             const page = clientReq.query.page || 0;
             
-            const offset = (limit * page) || 0;
+            const offset = (limitQuery.limit * page) || 0;
 
             const search =  searchQuery ? searchQuery  : {};
 
@@ -19,10 +17,12 @@ module.exports = {
                         ...search
                 }, 
                 options: {
-                    ...limit, 
+                    ...limitQuery, 
                     offset 
                 }
             });
+
+            console.log(data)
 
             const options = {
                 hostname: 'api.spacexdata.com',

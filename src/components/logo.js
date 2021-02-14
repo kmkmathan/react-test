@@ -5,9 +5,9 @@ import { device } from "../helpers";
 export const LogoWrapper = styled.span`
   display: block;
   width: 35px;
-  margin-left: 20px;
-  @media ${device.tablet} {
-    margin-left: 10px;
+  margin-left: 10px;
+  @media ${device.laptop} {
+    margin-left: 20px;
   }
 
   svg {

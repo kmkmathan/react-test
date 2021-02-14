@@ -7,8 +7,14 @@ import Grid from "../layout/grid";
 import Column from "../layout/column";
 
 const Loader = styled.div`
-  text-align: center
-`;
+    text-align: center;
+    margin-bottom: 200px;
+`
+
+const Nofound = styled.div`
+    text-align: center;
+    margin-bottom: 200px;
+`
 
 function Rockets() {
 
@@ -45,6 +51,7 @@ function Rockets() {
                   ))}
               </Grid>
         )}
+        {data?.rocket?.length === 0 && !loading  && <Nofound>Data not found</Nofound>}
     </Wrapper>
   );
 }

@@ -24,6 +24,7 @@ const NavList = styled.ul`
 
 const NavWrapper = styled.nav`
   margin-left: auto;
+  margin-right: 20px;
 
   ${BurgerMenu} {
     @media ${device.laptop} {

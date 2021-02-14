@@ -12,9 +12,6 @@ export const BurgerMenu = styled.button`
   position: relative;
   width: 25px;
   z-index: 56;
-  @media ${device.tablet} {
-    margin-right: 10px;
-  }
 
   span {
     background-color: #fff;

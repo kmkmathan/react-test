@@ -5,9 +5,9 @@ import { device } from "../helpers";
 const Image = styled.img`
   display: inline-block;
   height: 100vh;
+  width: 100%;
 
   @media ${device.laptop} {
-    width: 100%;
     height: auto;
   }
 `;
