@@ -20,12 +20,9 @@ const Hero = styled.div`
 
   ${LockupContainer} {
     position: absolute;
-    padding-top: 70px;
+    padding-top: 30%;
     width: 100%;
     max-width: 550px;
-    @media ${device.tablet} {
-      padding-top: 200px;
-    }
   }
 `;
 

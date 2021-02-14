@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const Paragraph = styled.p`
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.5em;
 `
 
