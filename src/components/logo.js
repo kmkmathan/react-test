@@ -1,9 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
+import { device } from "../helpers";
 
 export const LogoWrapper = styled.span`
   display: block;
   width: 35px;
+  margin-left: 20px;
+  @media ${device.tablet} {
+    margin-left: 10px;
+  }
 
   svg {
     width: 100%;

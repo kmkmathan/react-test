@@ -8,7 +8,7 @@ export const WrapperFrame = styled.div`
   margin: 0 auto;
   height: auto;
 
-  @media ${device.laptop} {
+  @media ${device.tablet} {
     width: 90%;
     max-width: 1440px;
   }

@@ -13,8 +13,6 @@ const Hero = styled.div`
   overflow: hidden;
 
   @media ${device.laptop} {
-    width: 100%;
-    height: auto;
     max-height: 100vh;
     overflow: hidden;
     position: relative;

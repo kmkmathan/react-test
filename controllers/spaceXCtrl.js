@@ -1,11 +1,11 @@
 const https = require('https');
 
 module.exports = {
-    getSpaceXData: async function (path, clientReq, searchQuery = null) {
+    getSpaceXData: async function (path, clientReq, limitQuery = {}, searchQuery = null) {
 
         return new Promise(async (resolve, reject) => {
 
-            const limit = clientReq.query.limit || 10;
+            const limit = limitQuery;
 
             const page = clientReq.query.page || 0;
             
@@ -16,15 +16,13 @@ module.exports = {
                const data = JSON.stringify(
                 {
                     query: {
-                         ...search
+                        ...search
                 }, 
                 options: {
-                    limit: limit, 
-                    offset: offset 
+                    ...limit, 
+                    offset 
                 }
             });
-
-            console.log(data)
 
             const options = {
                 hostname: 'api.spacexdata.com',

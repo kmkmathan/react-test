@@ -14,13 +14,22 @@ const getColumns = (columns, layout) => {
 export const ColumnWrapper = styled.div`
     ${({ columns, layout }) => css`
         flex-basis: 100%;
-        @media ${device.laptop} {
+        justify-content: center;
+        @media ${device.tablet} {
             display: flex;
             flex-basis: calc(
-                ${getColumns(columns, layout)} / ${layout || 12} *
+                .5 *
                 100%
             );
         }
+        @media ${device.laptop} {
+            display: flex;
+            flex-basis: calc(
+                ${getColumns(columns, layout)} / ${ layout || 12 } *
+                100%
+            );
+        }
+       
     `}
 `;
 

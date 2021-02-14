@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
-export const LinkWrap = styled.a`
+export const LinkWrap = styled.span`
   text-decoration: none;
   color: ${props => props.color};
   display: block;
@@ -13,6 +14,8 @@ export const LinkWrap = styled.a`
 `;
 
 
-const link = (props) => <LinkWrap href={props.url} color={props.color} hover={props.hover}>{props.title}</LinkWrap>
+const link = (props) => <LinkWrap as={Link} to={props.url} color={props.color} hover={props.hover}> 
+  {props.title}
+</LinkWrap>
 
 export default link

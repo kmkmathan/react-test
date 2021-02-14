@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { device } from "../../helpers";
 
 export const BurgerMenu = styled.button`
   display: block;
@@ -11,6 +12,9 @@ export const BurgerMenu = styled.button`
   position: relative;
   width: 25px;
   z-index: 56;
+  @media ${device.tablet} {
+    margin-right: 10px;
+  }
 
   span {
     background-color: #fff;
