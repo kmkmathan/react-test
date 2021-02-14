@@ -72,6 +72,7 @@ function Launches() {
     const [page, setPage] = useState(0);
     
     const close = () => {
+        setPage(0);
         setLoading(false);
         setSearch('');
     };
@@ -103,7 +104,13 @@ function Launches() {
   return (
           <Wrapper>
             <InputWrap>
-                <Input type="text" defaultValue={search} onChange={(e) => setSearch(e.target.value)}placeholder="Search launches" />
+                <Input type="text" defaultValue={search} onChange={(e) => 
+                {
+                    setLoading(false);
+                    setPage(0);
+                    setSearch(e.target.value)
+                }
+                }placeholder="Search launches" />
                 {search && <Close onClick={close}>&#10005;</Close> }
             </InputWrap>
             {loading && <Loader>loading....</Loader>}
