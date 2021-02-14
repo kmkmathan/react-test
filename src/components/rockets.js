@@ -9,6 +9,7 @@ import Column from "../layout/column";
 const Loader = styled.div`
     text-align: center;
     margin-bottom: 200px;
+    margin-top: 100px;
 `
 
 const Nofound = styled.div`

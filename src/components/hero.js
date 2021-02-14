@@ -23,6 +23,10 @@ const Hero = styled.div`
     padding-top: 30%;
     width: 100%;
     max-width: 550px;
+    padding-left: 10px;
+    @media ${device.laptop} {
+      padding-left: 20px;
+    }
   }
 `;
 

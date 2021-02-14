@@ -10,6 +10,7 @@ import Column from "../layout/column";
 const Loader = styled.div`
     text-align: center;
     margin-bottom: 200px;
+    margin-top: 100px;
 `
 
 const Nofound = styled.div`
@@ -37,6 +38,7 @@ const Close = styled.div`
 `
 const PageListCont = styled.ul`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 0 10px 0 30px;
   margin-bottom: 20px;
@@ -44,8 +46,10 @@ const PageListCont = styled.ul`
 
 const PageList = styled.li`
   &.disabled {
-    cursor: not-allowed;
-    opacity: .4;
+     button {
+        opacity: .4;
+        cursor: not-allowed;
+     }
   }
   button {
     border: none;
@@ -126,9 +130,10 @@ function Launches() {
                     }
                 }}>Prev</button>
                 </PageList>
-                <PageList className={page  === data.launches?.totalPages ? 'disabled': ''}>
+                <PageList><b>{page + 1}</b> Page{page > 1 ? 's': ''} of <b>{data.launches?.totalPages}</b> Total Pages</PageList>
+                <PageList className={page + 1 === data.launches?.totalPages ? 'disabled': ''}>
                 <button onClick={() => {
-                     if(page >= 0) {
+                     if(page >= 0 && page + 1 < data.launches?.totalPages ) {
                         pagination(2)
                     }
                 }}>Next</button>
