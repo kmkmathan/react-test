@@ -4,39 +4,33 @@ import styled, { css } from "styled-components";
 import { device } from "../helpers";
 
 
-const getColumns = (columns, layout) => {
+const getColumnUsingLayout = (columns, layout) => {
     if (columns > (layout || 12)) {
         return layout || 12;
     }
     return columns;
 };
 
-export const ColumnWrapper = styled.div`
+export const ColumnWrapperContainer = styled.div`
     ${({ columns, layout }) => css`
         flex-basis: 100%;
         justify-content: center;
         @media ${device.tablet} {
             display: flex;
-            flex-basis: calc(
-                .5 *
-                100%
-            );
+            flex-basis: 50%;
         }
         @media ${device.laptop} {
             display: flex;
-            flex-basis: calc(
-                ${getColumns(columns, layout)} / ${ layout || 12 } *
-                100%
-            );
+            flex-basis: calc( ${getColumnUsingLayout(columns, layout)} / ${ layout || 12 } * 100% );
         }
        
     `}
 `;
 
 const Column = ({ layout, columns, children }) => (
-    <ColumnWrapper layout={layout} columns={columns}>
+    <ColumnWrapperContainer layout={layout} columns={columns}>
         {children}
-    </ColumnWrapper>
+    </ColumnWrapperContainer>
 );
 
 Column.propTypes = {

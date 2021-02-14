@@ -2,21 +2,21 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-export const GridComponent = styled.div`
-  display: flex;
-  flex-wrap: ${(p) => p.wrap || "wrap"};
+export const GridWrapper = styled.div`
+    flex-wrap: ${(p) => p.wrap || "wrap"};
+    display: flex;
 `;
 
 const Grid = (props) => (
-  <GridComponent wrap={props.wrap}>{props.children}</GridComponent>
+  <GridWrapper wrap={props.wrap}>{props.children}</GridWrapper>
 );
 
 Grid.defaultProps = {
-  wrap: "wrap",
+    wrap: "wrap"
 };
 
 Grid.propTypes = {
-  children: PropTypes.array.isRequired,
+    children: PropTypes.array.isRequired,
 };
 
 export default Grid;
